@@ -3,36 +3,75 @@ description: >-
   Manual de operaciones interno de Empieza de Cero, SL.
   Procesos, procedimientos, checklists y políticas del equipo.
 
-remote_theme: just-the-docs/just-the-docs
-
 # Site settings
 baseurl: "/empieza-de-cero-manual"
 url: "https://weavewes.github.io"
 
-# Just the Docs settings
-search_enabled: true
-search.previews: 2
-search.preview_words_before: 3
-search.preview_words_after: 3
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
 
-# Navigation
-color_scheme: nil
-aux_links:
-  "Empieza de Cero":
-    - "https://empiezaddecero.es"
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-default-layout
 
-heading_anchors: true
+# Allow files without frontmatter to be processed
+optional_front_matter:
+  remove_originals: false
+
+# Default layout for all pages
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Navigation structure
+navigation:
+  - title: Inicio
+    url: /
+    icon: 🏠
+  - title: Procesos
+    url: /procesos/
+    icon: 🔄
+    children:
+      - title: Onboarding de Cliente
+        url: /procesos/ejemplo-onboarding-cliente.html
+  - title: Procedimientos
+    url: /procedimientos/
+    icon: 📋
+  - title: Checklists
+    url: /checklists/
+    icon: ✅
+    children:
+      - title: Lanzamiento de Campaña
+        url: /checklists/ejemplo-lanzamiento-campana.html
+  - title: Políticas
+    url: /politicas/
+    icon: 🛡️
+    children:
+      - title: Seguridad de Información
+        url: /politicas/ejemplo-seguridad-informacion.html
+  - title: Anexos
+    url: /anexos/
+    icon: 📎
+    children:
+      - title: Plantilla de Propuesta
+        url: /anexos/ejemplo-plantilla-propuesta.html
 
 # Footer
 footer_content: "© 2026 Empieza de Cero, SL — Mantenido por Weaves"
 
-# Back to top link
-back_to_top: true
-back_to_top_text: "Volver arriba"
-
-# Exclude files
+# Exclude files from processing
 exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules/
   - vendor/
+  - .sass-cache/
+  - .jekyll-cache/
+  - .jekyll-metadata

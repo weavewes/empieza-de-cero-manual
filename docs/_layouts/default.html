@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+</head>
+<body>
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <a href="{{ '/' | relative_url }}" class="mobile-logo">
+      <span class="logo-icon">📘</span>
+      <span class="logo-text">Manual EDC</span>
+    </a>
+  </header>
+
+  <!-- Overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="{{ '/' | relative_url }}" class="sidebar-logo">
+        <span class="logo-icon">📘</span>
+        <span class="logo-text">Manual EDC</span>
+      </a>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Navegación principal">
+      <ul class="nav-list">
+        {% for item in site.navigation %}
+        <li class="nav-item {% if item.children %}has-children{% endif %}">
+          <div class="nav-link-wrapper">
+            <a href="{{ item.url | relative_url }}" class="nav-link {% if page.url == item.url or page.url == item.url | append: 'index.html' %}active{% endif %}">
+              {% if item.icon %}
+              <span class="nav-icon">{{ item.icon }}</span>
+              {% endif %}
+              <span class="nav-text">{{ item.title }}</span>
+            </a>
+            {% if item.children %}
+            <button class="nav-toggle" aria-label="Expandir {{ item.title }}" aria-expanded="false">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+            {% endif %}
+          </div>
+          {% if item.children %}
+          <ul class="nav-children">
+            {% for child in item.children %}
+            <li class="nav-child-item">
+              <a href="{{ child.url | relative_url }}" class="nav-child-link {% if page.url == child.url %}active{% endif %}">
+                <span class="nav-child-icon">{{ child.icon | default: '•' }}</span>
+                <span class="nav-child-text">{{ child.title }}</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p>{{ site.footer_content }}</p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Migas de pan">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item">
+          <a href="{{ '/' | relative_url }}">Inicio</a>
+        </li>
+        {% assign path_parts = page.url | split: '/' %}
+        {% assign current_path = '' %}
+        {% for part in path_parts %}
+          {% if part != '' and part != 'index.html' %}
+            {% assign current_path = current_path | append: '/' | append: part %}
+            {% if forloop.last %}
+              <li class="breadcrumb-item active" aria-current="page">
+                {{ page.title | default: part | replace: '-', ' ' | replace: '.html', '' | capitalize }}
+              </li>
+            {% else %}
+              <li class="breadcrumb-item">
+                <a href="{{ current_path | relative_url }}">{{ part | replace: '-', ' ' | capitalize }}</a>
+              </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </nav>
+
+    <!-- Content -->
+    <article class="content">
+      {{ content }}
+    </article>
+  </main>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-top" id="scrollTop" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+</body>
+</html>
