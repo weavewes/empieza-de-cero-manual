@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title and page.title != site.title and page.title != 'Home' and page.title != 'Inicio' %}{{ page.title | replace: '📘 ', '' }} - {% endif %}{{ site.title }}</title>
+  {% capture clean_title %}{{ page.title | replace: '📘 ', '' | replace: '🔄 ', '' | replace: '🚀 ', '' | replace: '📋 ', '' | replace: '✅ ', '' | replace: '🛡️ ', '' | replace: '📎 ', '' | replace: '📝 ', '' | strip }}{% endcapture %}
+  <title>{% if clean_title and clean_title != '' and clean_title != site.title %}{{ clean_title }} - {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ site.description }}">
   
   <!-- Google Fonts -->
