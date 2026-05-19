@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title and page.title != site.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <title>{% if page.title and page.title != site.title and page.title != 'Home' and page.title != 'Inicio' %}{{ page.title | replace: '📘 ', '' }} - {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ site.description }}">
   
   <!-- Google Fonts -->
