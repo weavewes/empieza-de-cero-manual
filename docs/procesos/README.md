@@ -8,7 +8,7 @@ Esta sección documenta los **procesos de negocio completos** de Empieza de Cero
 
 | Proceso | Descripción | Estado |
 |---------|-------------|--------|
-| *(Ejemplo)* [Onboarding de nuevo cliente](ejemplo-onboarding-cliente.md) | Cómo dar de alta y preparar un nuevo cliente para trabajar con nosotros | 🟢 Activo |
+| [Registro y Gestión de Conectores (Referidores)](registro-gestion-conectores-referidores.md) | Alta de Conectores, generación de enlaces personalizados y registro de clientes referidos | 🟢 Activo |
 
 ---
 

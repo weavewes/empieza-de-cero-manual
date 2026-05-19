@@ -39,8 +39,8 @@ navigation:
     url: /procesos/
     icon: 🔄
     children:
-      - title: Onboarding de Cliente
-        url: /procesos/ejemplo-onboarding-cliente.html
+      - title: Registro y Gestión de Conectores
+        url: /procesos/registro-gestion-conectores-referidores.html
   - title: Procedimientos
     url: /procedimientos/
     icon: 📋
